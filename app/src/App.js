@@ -34,7 +34,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "app",
+      name: "",
       lang: "java",
       build: "gradle",
       features: [],
@@ -162,10 +162,13 @@ class App extends Component {
           />
         </Navbar>
         <div className="container mn-container">
-          <form onSubmit={this.generateProject}>
+          <form onSubmit={this.generateProject} autoComplete="off">
             <Row>
               <Col s={4}>
                 <TextInput
+                  required
+                  s={12}
+                  className="mn-input"
                   label="Name"
                   value={this.state.name}
                   onChange={this.handleNameChange}
@@ -173,6 +176,7 @@ class App extends Component {
               </Col>
               <Col s={4}>
                 <Select
+                  s={12}
                   label="Language"
                   value={this.state.lang}
                   onChange={this.handleLangChange}
@@ -184,6 +188,7 @@ class App extends Component {
               </Col>
               <Col s={4}>
                 <Select
+                  s={12}
                   label="Build"
                   value={this.state.build}
                   onChange={this.handleBuildChange}
@@ -197,9 +202,10 @@ class App extends Component {
               <Col s={6}>
                 <Row>
                   <TextInput
+                    className="mn-input"
                     s={12}
                     label="Features"
-                    placeholder="Find features"
+                    // placeholder="Find features"
                     value={this.state.featureSearch}
                     onChange={this.searchFeature}
                   />
@@ -232,7 +238,7 @@ class App extends Component {
             <Row>
               <Col s={3}>
                 <Button
-                  disabled={this.state.downloading}
+                  disabled={this.state.downloading || !this.state.name}
                   waves="light"
                   style={{ marginRight: "5px", backgroundColor: "black" }}
                 >
