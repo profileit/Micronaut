@@ -13,10 +13,12 @@ def hello():
     name = request.args.get('name')
     lang = request.args.get('lang')
     build = request.args.get('build')
+    features = request.args.get('features')
 
     if name: myCmd += name
-    if lang: myCmd += ' -lang ' + lang
-    if build: myCmd += ' -build ' + build
+    if lang: myCmd += ' -l ' + lang
+    if build: myCmd += ' -b ' + build
+    if features: myCmd += ' -f ' + features
 
     os.system(myCmd)
     shutil.make_archive(name, 'zip', name)
