@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
+def generateProject():
     myCmd = 'mn create-app '
     
     name = request.args.get('name')
