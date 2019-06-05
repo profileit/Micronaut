@@ -13,16 +13,28 @@ RUN export PATH=${GRADLE_HOME}/bin:${PATH}
 
 RUN git clone https://github.com/micronaut-projects/micronaut-core.git
 RUN cd micronaut-core && ./gradlew cli:fatJar
-
 ENV PATH="$PATH:/micronaut-core/cli/build/bin"
 
-RUN mn --version
-
 # # FLASK API
-RUN add-apt-repository ppa:jonathonf/python-3.6
-RUN apt-get install -y python-pip python-dev build-essential
-COPY . /app
-WORKDIR /app
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+RUN apt update && apt install python3-pip -y
+RUN pip3 install --upgrade pip
+COPY . /srv/flask_app
+WORKDIR /srv/flask_app
+
+RUN apt-get clean && apt-get -y update
+RUN apt-get -y install nginx && apt-get -y install python3-dev && apt-get -y install build-essential
+
+RUN pip install -r requirements.txt --src /usr/local/src
+
+COPY nginx.conf /etc/nginx
+RUN chmod +x ./start.sh
+CMD ["./start.sh"]
+
+
+# COPY . /app
+# WORKDIR /app
+# RUN pip3 install -r requirements.txt
+# ENV LANG C.UTF-8
+# ENV LC_ALL C.UTF-8
+# # ENTRYPOINT ["flask", "run"]
+# ENTRYPOINT [ "waitress-serve --call 'flaskr:create_app'" ]

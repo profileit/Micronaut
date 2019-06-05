@@ -1,17 +1,40 @@
+.mn-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  /* background-color: black !important; */
+  /* text-align: center; */
+}
+
+.mn-footer-logos {
+    float: right;
+    margin-left: 10px;
+}
+
 .mn-menu {
-    background-color: black;
+  background-color: black;
 }
 
 .mn-feature-selection:hover {
-    background-color: black !important;
-    color: white !important;
+  background-color: black !important;
+  color: white !important;
 }
 
 .mn-container {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .mn-input:focus {
-    border-bottom: 1px solid #000000 !important;
-    box-shadow: 0 1px 0 0 #000000 !important;
+  border-bottom: 1px solid #000000 !important;
+  box-shadow: 0 1px 0 0 #000000 !important;
+}
+
+.progress {
+  background-color: #dfdfdf;
+}
+
+.progress .indeterminate {
+  background-color: #040404bd;
 }
