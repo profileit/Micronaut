@@ -1,16 +1,12 @@
 import React, { Component, Fragment } from "react";
-import { Button, Card, Navbar, ProgressBar, Select } from "react-materialize";
+import { Button, Card, ProgressBar, Select } from "react-materialize";
 import Col from "react-materialize/lib/Col";
 import Icon from "react-materialize/lib/Icon";
+import Modal from "react-materialize/lib/Modal";
 import Row from "react-materialize/lib/Row";
 import TextInput from "react-materialize/lib/TextInput";
-import logo from "./logo.svg";
+import logo from "./micronaut.png";
 import "./style.css";
-
-const style = {
-  width: "10%",
-  marginTop: "8px"
-};
 
 const FEATURES = Object.entries({
   "annotation-api": "Adds Java annotation API",
@@ -96,7 +92,8 @@ class App extends Component {
       featureSearch: "",
       featureSearchResults: Object.entries({}),
       featuresSelected: Object.entries({}),
-      downloading: false
+      downloading: false,
+      info: false
     };
   }
 
@@ -208,130 +205,131 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar centerLogo className="mn-menu">
-          <img
-            src={logo}
-            alt="logo"
-            style={style}
-            className="brand-logo center"
-          />
-        </Navbar>
-        <div className="container mn-container">
-          <form onSubmit={this.generateProject} autoComplete="off">
-            <Row>
-              <Col s={4}>
-                <TextInput
-                  required
-                  s={12}
-                  className="mn-input"
-                  label="Name"
-                  value={this.state.name}
-                  onChange={this.handleNameChange}
-                />
-              </Col>
-              <Col s={4}>
-                <Select
-                  s={12}
-                  label="Language"
-                  value={this.state.lang}
-                  onChange={this.handleLangChange}
-                >
-                  <option value="java">Java</option>
-                  <option value="kotlin">Kotlin</option>
-                  <option value="groovy">Groovy</option>
-                </Select>
-              </Col>
-              <Col s={4}>
-                <Select
-                  s={12}
-                  label="Build"
-                  value={this.state.build}
-                  onChange={this.handleBuildChange}
-                >
-                  <option value="gradle">Gradle</option>
-                  <option value="maven">Maven</option>
-                </Select>
-              </Col>
-            </Row>
-            <Row>
-              <Col s={6}>
-                <Row>
+        <div className="container">
+          <img src={logo} width="55%" alt="logo" className="mn-logo" />
+          <div className="mn-container">
+            <form onSubmit={this.generateProject} autoComplete="off">
+              <Row>
+                <Col s={4}>
                   <TextInput
-                    className="mn-input"
+                    required
                     s={12}
-                    label="Features"
-                    // placeholder="Find features"
-                    value={this.state.featureSearch}
-                    onChange={this.searchFeature}
+                    className="mn-input"
+                    label="Name"
+                    value={this.state.name}
+                    onChange={this.handleNameChange}
                   />
-                  {this.state.featureSearchResults.map((feature, i) => (
-                    <Col s={12} key={i}>
-                      <Card
-                        className="white mn-feature-selection"
-                        title={feature[0]}
-                        onClick={() => this.addFeature(feature)}
-                      >
-                        <p className="grey-text">{feature[1]}</p>
+                </Col>
+                <Col s={4}>
+                  <Select
+                    s={12}
+                    label="Language"
+                    value={this.state.lang}
+                    onChange={this.handleLangChange}
+                  >
+                    <option value="java">Java</option>
+                    <option value="kotlin">Kotlin</option>
+                    <option value="groovy">Groovy</option>
+                  </Select>
+                </Col>
+                <Col s={4}>
+                  <Select
+                    s={12}
+                    label="Build"
+                    value={this.state.build}
+                    onChange={this.handleBuildChange}
+                  >
+                    <option value="gradle">Gradle</option>
+                    <option value="maven">Maven</option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row>
+                <Col s={6}>
+                  <Row>
+                    <TextInput
+                      className="mn-input"
+                      s={12}
+                      label="Features"
+                      // placeholder="Find features"
+                      value={this.state.featureSearch}
+                      onChange={this.searchFeature}
+                    />
+                    {this.state.featureSearchResults.map((feature, i) => (
+                      <Col s={12} key={i}>
+                        <Card
+                          className="white mn-feature-selection"
+                          title={feature[0]}
+                          onClick={() => this.addFeature(feature)}
+                        >
+                          <p className="grey-text">{feature[1]}</p>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                </Col>
+                <Col s={6}>
+                  {this.state.featuresSelected.length > 0 ? (
+                    <b>Selected features</b>
+                  ) : null}
+                  <Row>
+                    {this.state.featuresSelected.map((helpTerm, i) => (
+                      <Card className="white" title={helpTerm[0]} key={i}>
+                        <p className="grey-text">{helpTerm[1]}</p>
                       </Card>
-                    </Col>
-                  ))}
-                </Row>
-              </Col>
-              <Col s={6}>
-                {this.state.featuresSelected.length > 0 ? (
-                  <b>Selected features</b>
-                ) : null}
-                <Row>
-                  {this.state.featuresSelected.map((helpTerm, i) => (
-                    <Card className="white" title={helpTerm[0]} key={i}>
-                      <p className="grey-text">{helpTerm[1]}</p>
-                    </Card>
-                  ))}
-                </Row>
-              </Col>
-            </Row>
-            <Row>
-              <Col s={3}>
-                <Button
-                  disabled={this.state.downloading || !this.state.name}
-                  waves="light"
-                  style={{ marginRight: "5px", backgroundColor: "black" }}
-                >
-                  <Icon left>add</Icon>
-                  Generate project
-                </Button>
-              </Col>
-            </Row>
-          </form>
-          {this.state.downloading ? <ProgressBar /> : null}
-        </div>
-        <div className="mn-footer">
-          <a
-            href="https://twitter.com/maq_dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mn-footer-logos"
-          >
-            <img
-              src="https://image.flaticon.com/icons/png/512/23/23931.png"
-              alt="Twitter"
-              height="30px"
-              weight="30px"
-            />
-          </a>
-          <a
-            href="https://github.com/migangqui"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mn-footer-logos"
-          >
-            <img
-              src="https://image.flaticon.com/icons/svg/25/25231.svg"
-              alt="GitHub"
-              height="30px"
-              weight="30px"
-            />
-          </a>
+                    ))}
+                  </Row>
+                </Col>
+              </Row>
+              <Row>
+                <Col s={3}>
+                  <Button
+                    disabled={this.state.downloading || !this.state.name}
+                    waves="light"
+                    style={{ marginRight: "5px", backgroundColor: "black" }}
+                  >
+                    <Icon left>add</Icon>
+                    Generate project
+                  </Button>
+                </Col>
+              </Row>
+            </form>
+            {this.state.downloading ? <ProgressBar /> : null}
+          </div>
+          <div className="mn-footer">
+            <Modal open={this.state.info} header="What's this?" trigger={<Button floating icon="info" className="black" onClick={() => this.setState({info: true})}></Button>}>
+              <p>
+                Micronaut Initializr is an application web that allows to create Micronaut projects by an interface instead of use the console CLI. You can
+                choose a name to the project, the language (Java, Kotlin, Groovy), the build tool (Maven, Gradle) and the features you need to develop your software.
+              </p>
+            </Modal>
+            <a
+              href="https://twitter.com/maq_dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mn-footer-logos"
+            >
+              <img
+                src="https://image.flaticon.com/icons/png/512/23/23931.png"
+                alt="Twitter"
+                height="30px"
+                weight="30px"
+              />
+            </a>
+            <a
+              href="https://github.com/migangqui"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mn-footer-logos"
+            >
+              <img
+                src="https://image.flaticon.com/icons/svg/25/25231.svg"
+                alt="GitHub"
+                height="30px"
+                weight="30px"
+              />
+            </a>
+          </div>
         </div>
       </Fragment>
     );
