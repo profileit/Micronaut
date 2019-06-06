@@ -296,7 +296,8 @@ class App extends Component {
             </form>
             {this.state.downloading ? <ProgressBar /> : null}
           </div>
-          <div className="mn-footer">
+        </div>
+        <div className="mn-footer">
             <Modal open={this.state.info} header="What's this?" trigger={<Button floating icon="info" className="black" onClick={() => this.setState({info: true})}></Button>}>
               <p>
                 Micronaut Initializr is an application web that allows to create Micronaut projects by an interface instead of use the console CLI. You can
@@ -304,7 +305,7 @@ class App extends Component {
               </p>
             </Modal>
             <a
-              href="https://twitter.com/maq_dev"
+              href="https://twitter.com/micronautfw"
               target="_blank"
               rel="noopener noreferrer"
               className="mn-footer-logos"
@@ -317,7 +318,7 @@ class App extends Component {
               />
             </a>
             <a
-              href="https://github.com/migangqui"
+              href="https://github.com/micronaut-projects"
               target="_blank"
               rel="noopener noreferrer"
               className="mn-footer-logos"
@@ -330,7 +331,6 @@ class App extends Component {
               />
             </a>
           </div>
-        </div>
       </Fragment>
     );
   }

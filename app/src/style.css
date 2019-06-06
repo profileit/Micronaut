@@ -1,5 +1,17 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #6397aa0f;
+  background-color: #ececec03;
+  position: relative;
+  padding-bottom: 6rem;
+  min-height: 100%;
+}
+
+label, span {
+  color: black !important;
 }
 
 .modal {
@@ -12,8 +24,6 @@ body {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  /* background-color: black !important; */
-  /* text-align: center; */
 }
 
 .mn-logo {
@@ -25,17 +35,16 @@ body {
   margin-left: 10px;
 }
 
-.mn-menu {
-  background-color: black;
-}
-
 .mn-feature-selection:hover {
   background-color: black !important;
+}
+
+.mn-feature-selection:hover > div.card-content > span.card-title {
   color: white !important;
 }
 
 .mn-container {
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 
 .mn-input:focus {
