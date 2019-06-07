@@ -7,6 +7,7 @@ import Row from "react-materialize/lib/Row";
 import TextInput from "react-materialize/lib/TextInput";
 import logo from "./micronaut.png";
 import "./style.css";
+import RadioGroup from "react-materialize/lib/RadioGroup";
 
 const FEATURES = Object.entries({
   "annotation-api": "Adds Java annotation API",
@@ -86,8 +87,10 @@ class App extends Component {
     super(props);
     this.state = {
       name: "",
+      package: "",
       lang: "java",
       build: "gradle",
+      version: "1.2.0.RC1",
       features: [],
       featureSearch: "",
       featuresToSelect: FEATURES,
@@ -181,10 +184,14 @@ class App extends Component {
     let FETCH_URL =
       "http://localhost:5000/?name=" +
       this.state.name +
+      "&package=" +
+      this.state.package +
       "&lang=" +
       this.state.lang +
       "&build=" +
-      this.state.build;
+      this.state.build +
+      "&version=" +
+      this.state.version;
 
     const features = this.state.features;
 
@@ -216,6 +223,7 @@ class App extends Component {
   };
 
   handleChange = event => {
+    console.log("event", event.target.name)
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -227,18 +235,31 @@ class App extends Component {
           <div className="mn-container">
             <form onSubmit={this.generateProject} autoComplete="off">
               <Row>
-                <Col s={4}>
+                <Col s={3}>
                   <TextInput
                     required
                     s={12}
                     className="mn-input"
                     label="Name"
                     name="name"
+                    placeholder="ex: myapp"
                     value={this.state.name}
                     onChange={this.handleChange}
                   />
                 </Col>
-                <Col s={4}>
+                <Col s={3}>
+                  <TextInput
+                    required
+                    s={12}
+                    className="mn-input"
+                    label="Package"
+                    name="package"
+                    placeholder="ex: com.mycompany"
+                    value={this.state.package}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+                <Col s={3}>
                   <Select
                     s={12}
                     label="Language"
@@ -251,7 +272,7 @@ class App extends Component {
                     <option value="groovy">Groovy</option>
                   </Select>
                 </Col>
-                <Col s={4}>
+                <Col s={3}>
                   <Select
                     s={12}
                     label="Build"
@@ -266,36 +287,36 @@ class App extends Component {
               </Row>
               <Row>
                 <Col s={6}>
-                    <TextInput
-                      className="mn-input"
-                      s={12}
-                      label="Features"
-                      // placeholder="Find features"
-                      value={this.state.featureSearch}
-                      onChange={this.searchFeature}
-                    />
-                    {this.state.featureSearch &&
+                  <TextInput
+                    className="mn-input"
+                    s={12}
+                    label="Features"
+                    placeholder="ex: cassandra"
+                    value={this.state.featureSearch}
+                    onChange={this.searchFeature}
+                  />
+                  {this.state.featureSearch &&
                     this.state.featureSearchResults.length === 0 ? (
                       <Col s={12}>
                         <p className="grey-text">No results.</p>
                       </Col>
                     ) : null}
-                    {this.state.featureSearchResults.map((feature, i) => (
-                      <Col s={12} key={i}>
-                        <Card
-                          className="white mn-feature-selection"
-                          title={feature[0]}
-                          onClick={() => this.addFeature(feature)}
-                        >
-                          <p className="grey-text">{feature[1]}</p>
-                        </Card>
-                      </Col>
-                    ))}
+                  {this.state.featureSearchResults.map((feature, i) => (
+                    <Col s={12} key={i}>
+                      <Card
+                        className="white mn-feature-selection"
+                        title={feature[0]}
+                        onClick={() => this.addFeature(feature)}
+                      >
+                        <p className="grey-text">{feature[1]}</p>
+                      </Card>
+                    </Col>
+                  ))}
                 </Col>
                 <Col s={6}>
                   <b>Selected features</b>
                   {this.state.featuresSelected.length === 0 ? (
-                      <p className="grey-text">No features selected.</p>
+                    <p className="grey-text">No features selected.</p>
                   ) : null}
                   <Row>
                     {this.state.featuresSelected.map((feature, i) => (
@@ -317,6 +338,17 @@ class App extends Component {
                       </Card>
                     ))}
                   </Row>
+                </Col>
+              </Row>
+              <Row>
+                <Col s={6}>
+                  <p><b>Micronaut Version</b></p>
+                  <RadioGroup
+                    name="version"
+                    value={this.state.version}
+                    onChange={this.handleChange}
+                    options={[{ label: '1.1.2', value: '1.1.2' }, { label: '1.2.0.RC1', value: '1.2.0.RC1' }]}
+                  />
                 </Col>
               </Row>
               <Row>

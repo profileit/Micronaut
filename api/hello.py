@@ -8,13 +8,16 @@ app = Flask(__name__)
 
 @app.route("/")
 def generateProject():
-    myCmd = 'mn create-app '
-    
+
+    myCmd = "$HOME/.sdkman/candidates/micronaut/" + request.args.get('version') + "/bin/mn create-app "
+
     name = request.args.get('name')
+    package = request.args.get('package')
     lang = request.args.get('lang')
     build = request.args.get('build')
     features = request.args.get('features')
 
+    if package: myCmd += package + "."
     if name: myCmd += name
     if lang: myCmd += ' -l ' + lang
     if build: myCmd += ' -b ' + build

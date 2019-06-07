@@ -14,6 +14,14 @@ label, span {
   color: black !important;
 }
 
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+  background-color: #000000;
+}
+
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+  border: 2px solid #000000;
+}
+
 .modal {
     width: 35%;
 }
