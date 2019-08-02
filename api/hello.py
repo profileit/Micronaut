@@ -1,10 +1,12 @@
 from flask import Flask
 from flask import send_file
 from flask import request
+from flask_cors import CORS
 import shutil
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def generateProject():

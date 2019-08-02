@@ -9,6 +9,9 @@ Install Micronaut CLI (with SDKMAN)
 Install Flask
 ```pip3 install Flask```
 
+Install Flask CORS
+```pip3 install -U flask-cors```
+
 ## Run
 
 ```FLASK_APP=hello.py flask run```
