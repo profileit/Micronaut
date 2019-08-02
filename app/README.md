@@ -1,5 +1,7 @@
 # Micronaut Inizializr APP
 
+Frontend module of Micronaut Initializr. Developed with React.js .
+
 ## Run
 
 ```npm install```
