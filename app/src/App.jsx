@@ -18,7 +18,7 @@ class App extends Component {
       package: "",
       lang: "java",
       build: "gradle",
-      version: "1.2.0.RC1",
+      version: "1.2.0",
       features: [],
       featureSearch: "",
       featuresToSelect: FEATURES,

@@ -1,41 +1,16 @@
-FROM xqdocker/ubuntu-openjdk:jdk-8
+FROM ubuntu:16.04
+RUN apt-get update
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN apt-get -qq -y install curl unzip zip
+RUN apt-get install -y default-jdk
+RUN curl -s https://get.sdkman.io | bash
+RUN chmod a+x "$HOME/.sdkman/bin/sdkman-init.sh"
+RUN source "$HOME/.sdkman/bin/sdkman-init.sh"
+RUN bash -c ". /root/.sdkman/bin/sdkman-init.sh && sdk install micronaut"
 
-# RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-# RUN apt update
-# RUN apt install wget unzip git -y
-# RUN git --version
-
-# RUN wget https://services.gradle.org/distributions/gradle-5.0-bin.zip -P /tmp
-# RUN unzip -d /opt/gradle /tmp/gradle-*.zip
-# RUN ls /opt/gradle/gradle-5.0
-# RUN export GRADLE_HOME=/opt/gradle/gradle-5.0
-# RUN export PATH=${GRADLE_HOME}/bin:${PATH}
-
-# RUN git clone https://github.com/micronaut-projects/micronaut-core.git
-# RUN cd micronaut-core && ./gradlew cli:fatJar
-# ENV PATH="$PATH:/micronaut-core/cli/build/bin"
-# RUN mn --version
-
-# # FLASK API
-RUN apt update && apt install python3-pip -y
-RUN pip3 install --upgrade pip
-COPY . /srv/flask_app
-WORKDIR /srv/flask_app
-
-RUN apt-get clean && apt-get -y update
-RUN apt-get -y install nginx && apt-get -y install python3-dev && apt-get -y install build-essential
-
-RUN pip install -r requirements.txt --src /usr/local/src
-
-COPY nginx.conf /etc/nginx
-RUN chmod +x ./start.sh
-CMD ["./start.sh"]
-
-
-# COPY . /app
-# WORKDIR /app
-# RUN pip3 install -r requirements.txt
-# ENV LANG C.UTF-8
-# ENV LC_ALL C.UTF-8
-# # ENTRYPOINT ["flask", "run"]
-# ENTRYPOINT [ "waitress-serve --call 'flaskr:create_app'" ]
+RUN apt-get install -y python-pip python-dev build-essential
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+ENTRYPOINT ["python"]
+CMD ["hello.py"]

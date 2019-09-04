@@ -5,3 +5,4 @@ Jinja2==2.10.1
 MarkupSafe==1.0
 uWSGI==2.0.17.1
 Werkzeug==0.14.1
+flask_cors
