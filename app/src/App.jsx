@@ -8,17 +8,17 @@ import TextInput from "react-materialize/lib/TextInput";
 import logo from "./micronaut.png";
 import "./style.css";
 import RadioGroup from "react-materialize/lib/RadioGroup";
-import { FEATURES, MICRONAUT_VERSIONS } from './constants';
-
+import { FEATURES } from './constants';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       package: "",
+      micronautVersions: [],
       lang: "java",
       build: "gradle",
-      version: "1.2.0",
+      version: "1.2.0.RC1",
       features: [],
       featureSearch: "",
       featuresToSelect: FEATURES,
@@ -28,33 +28,24 @@ class App extends Component {
       info: false
     };
   }
-
   searchFeature = event => {
     const value = event.target.value;
-
     this.setState({ featureSearch: value });
-
     if (value) {
       const featuresMap = new Map(this.state.featuresToSelect);
-
       const keysSearched = Array.from(featuresMap.keys()).filter(
         el => el.toLowerCase().indexOf(value.toLowerCase()) > -1
       );
-
       const resultMap = new Map();
-
       keysSearched.forEach(key => {
         resultMap.set(key, featuresMap.get(key));
       });
-
       const results = Object.entries(this.mapToObject(resultMap));
-
       this.setState({ featureSearchResults: results });
     } else {
       this.setState({ featureSearchResults: Object.entries({}) });
     }
   };
-
   mapToObject = map => {
     const obj = {};
     map.forEach((v, k) => {
@@ -62,26 +53,37 @@ class App extends Component {
     });
     return obj;
   };
-
+  componentDidMount() {
+    fetch('https://api.github.com/repos/micronaut-projects/micronaut-core/tags')
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error when checking micronaut versions on GitHub');
+        }
+      })
+      .then((data) => {
+        let micronautVersions = [];
+        data.slice(0, 5).forEach((version) => {
+          micronautVersions.push({ label: version.name.replace('v', ''), value: version.name.replace('v', '') })
+        })
+        this.setState({ micronautVersions });
+      })
+  }
   addFeature = feature => {
     let featuresSelected = this.state.featuresSelected;
     let featuresToSelect = this.state.featuresToSelect;
     let features = this.state.features;
-
     featuresSelected.push(feature);
     features.push(feature[0]);
-
     let indexOfFeature;
-
     // eslint-disable-next-line
     featuresToSelect.map((f, i) => {
       if (f[0] === feature[0]) {
         return (indexOfFeature = i);
       }
     });
-
     featuresToSelect.splice(indexOfFeature, 1);
-
     this.setState({
       featuresToSelect,
       featuresSelected,
@@ -90,25 +92,18 @@ class App extends Component {
       featureSearch: ""
     });
   };
-
   removeFeature = (e, feature, index) => {
     e.preventDefault();
-
     const featuresSelected = this.state.featuresSelected;
     const featuresToSelect = this.state.featuresToSelect;
-
     featuresSelected.splice(index, 1);
     featuresToSelect.push(feature);
-
     this.setState({ featuresSelected, featuresToSelect });
   };
-
   generateProject = e => {
     e.preventDefault();
     console.log(this.state);
-
     this.setState({ downloading: true });
-
     let FETCH_URL =
       "http://localhost:5000/?name=" +
       this.state.name +
@@ -120,9 +115,7 @@ class App extends Component {
       this.state.build +
       "&version=" +
       this.state.version;
-
     const features = this.state.features;
-
     if (features.length > 0) {
       FETCH_URL += "&features=";
       // eslint-disable-next-line
@@ -133,7 +126,6 @@ class App extends Component {
         }
       });
     }
-
     fetch(FETCH_URL, {
       method: "GET"
     })
@@ -149,12 +141,10 @@ class App extends Component {
         this.setState({ downloading: false });
       });
   };
-
   handleChange = event => {
     console.log("event", event.target.name)
     this.setState({ [event.target.name]: event.target.value });
   };
-
   render() {
     return (
       <Fragment>
@@ -275,7 +265,7 @@ class App extends Component {
                     name="version"
                     value={this.state.version}
                     onChange={this.handleChange}
-                    options={MICRONAUT_VERSIONS}
+                    options={this.state.micronautVersions}
                   />
                 </Col>
               </Row>
@@ -347,5 +337,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
