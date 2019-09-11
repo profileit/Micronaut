@@ -102,10 +102,9 @@ class App extends Component {
   };
   generateProject = e => {
     e.preventDefault();
-    console.log(this.state);
     this.setState({ downloading: true });
     let FETCH_URL =
-      "http://localhost:5000/?name=" +
+      "https://mninit-api-ju2cc4ftfa-ew.a.run.app/?name=" +
       this.state.name +
       "&package=" +
       this.state.package +
@@ -142,7 +141,6 @@ class App extends Component {
       });
   };
   handleChange = event => {
-    console.log("event", event.target.name)
     this.setState({ [event.target.name]: event.target.value });
   };
   render() {
