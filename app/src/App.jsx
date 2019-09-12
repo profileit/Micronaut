@@ -103,7 +103,6 @@ class App extends Component {
   };
   generateProject = e => {
     e.preventDefault();
-    console.log(this.state);
     this.setState({ downloading: true });
     let FETCH_URL =
       API_URL+"/?name=" +
@@ -143,7 +142,6 @@ class App extends Component {
       });
   };
   handleChange = event => {
-    console.log("event", event.target.name)
     this.setState({ [event.target.name]: event.target.value });
   };
   render() {

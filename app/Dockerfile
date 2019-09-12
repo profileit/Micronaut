@@ -15,5 +15,6 @@ RUN npm install
 RUN npm run build
 RUN rm /var/www/html/index.nginx-debian.html
 RUN cp -a build/. /var/www/html/
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 CMD ["nginx", "-g", "daemon off;"]

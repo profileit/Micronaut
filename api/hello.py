@@ -11,7 +11,8 @@ CORS(app)
 @app.route("/")
 def generateProject():
 
-    myCmd = "$HOME/.sdkman/candidates/micronaut/" + request.args.get('version') + "/bin/mn create-app "
+    # myCmd = "$HOME/.sdkman/candidates/micronaut/" + request.args.get('version') + "/bin/mn create-app "
+    myCmd = "/root/.sdkman/candidates/micronaut/" + request.args.get('version') + "/bin/mn create-app "
 
     name = request.args.get('name')
     package = request.args.get('package')
@@ -33,4 +34,4 @@ def generateProject():
     return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True,host='0.0.0.0',port=8080)
