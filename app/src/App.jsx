@@ -246,10 +246,11 @@ class App extends Component {
                             <Button
                               floating
                               small
-                              icon="close"
                               className="black"
                               onClick={(e) => this.removeFeature(e, feature, i)}
-                            />
+                            >
+                              <Icon>info</Icon>
+                            </Button>
                           </Col>
                         </Row>
                       </Card>
@@ -291,10 +292,11 @@ class App extends Component {
             trigger={
               <Button
                 floating
-                icon="info"
                 className="black"
                 onClick={() => this.setState({ info: true })}
-              />
+              >
+                <Icon>info</Icon>
+              </Button>
             }
           >
             <p>
