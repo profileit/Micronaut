@@ -6,9 +6,10 @@ import Modal from "react-materialize/lib/Modal";
 import Row from "react-materialize/lib/Row";
 import TextInput from "react-materialize/lib/TextInput";
 import logo from "./micronaut.png";
+import profileLogo from "./profile-icon.jpg";
 import "./style.css";
 import RadioGroup from "react-materialize/lib/RadioGroup";
-import { FEATURES } from './constants';
+import { FEATURES, API_URL } from './constants';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -67,7 +68,7 @@ class App extends Component {
         data.slice(0, 5).forEach((version) => {
           micronautVersions.push({ label: version.name.replace('v', ''), value: version.name.replace('v', '') })
         })
-        this.setState({ micronautVersions });
+        this.setState({ micronautVersions, version: micronautVersions[0].value });
       })
   }
   addFeature = feature => {
@@ -105,7 +106,7 @@ class App extends Component {
     console.log(this.state);
     this.setState({ downloading: true });
     let FETCH_URL =
-      "http://localhost:5000/?name=" +
+      API_URL+"/?name=" +
       this.state.name +
       "&package=" +
       this.state.package +
@@ -149,7 +150,7 @@ class App extends Component {
     return (
       <Fragment>
         <div className="container">
-          <img src={logo} width="50%" alt="logo" className="mn-logo" />
+          <img src={logo} width="50%" alt="Micronaut" className="mn-logo" />
           <div className="mn-container">
             <form onSubmit={this.generateProject} autoComplete="off">
               <Row>
@@ -305,6 +306,21 @@ class App extends Component {
               Groovy), the build tool (Maven, Gradle) and the features you need
               to develop your software.
             </p>
+            <p>
+              Developed by:
+            </p>
+            <Row>
+              <Col s={6}>
+                <a href="https://www.linkedin.com/in/miguel-%C3%A1ngel-quintanilla-758a5b120/" rel="noopener noreferrer" target="_blank">Miguel Ángel Quintanilla</a>
+                <br/>
+                <a href="https://www.linkedin.com/in/francisco-javier-delgado-vallano-b28b1670/" rel="noopener noreferrer" target="_blank">Fco. Javier Delgado Vallano</a>
+              </Col>
+              <Col s={3}>
+                <a href="https://profile.es/" rel="noopener noreferrer" target="_blank"><img src={profileLogo} width="50%" alt="Profile Software Services" /></a>
+              </Col>
+            </Row>
+     
+            
           </Modal>
           <a
             href="https://twitter.com/micronautfw"
@@ -315,6 +331,7 @@ class App extends Component {
             <img
               src="https://image.flaticon.com/icons/png/512/23/23931.png"
               alt="Twitter"
+              rel="noopener noreferrer"
               height="30px"
               weight="30px"
             />
@@ -328,6 +345,7 @@ class App extends Component {
             <img
               src="https://image.flaticon.com/icons/svg/25/25231.svg"
               alt="GitHub"
+              rel="noopener noreferrer"
               height="30px"
               weight="30px"
             />

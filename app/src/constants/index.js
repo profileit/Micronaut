@@ -71,4 +71,4 @@ export const FEATURES = Object.entries({
       "Adds support for distributed tracing with Zipkin (https://zipkin.io)"
   });
 
-  export const MICRONAUT_VERSIONS = [{ label: '1.1.2', value: '1.1.2' }, { label: '1.2.0', value: '1.2.0' }]
+export const API_URL = "https://mninit-api-ju2cc4ftfa-ew.a.run.app"
