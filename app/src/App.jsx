@@ -300,11 +300,9 @@ class App extends Component {
             }
           >
             <p>
-              Micronaut Initializr is an application web that allows to create
-              Micronaut projects by an interface instead of use the console CLI.
-              You can choose a name to the project, the language (Java, Kotlin,
-              Groovy), the build tool (Maven, Gradle) and the features you need
-              to develop your software.
+              Micronaut Initializr is a web application that allows you to create Micronaut projects through an interface instead of using the console CLI.
+              You can set the project name, the language (Java, Kotlin, Groovy), the build tool (Maven, Gradle)
+              and the features you need to develop your software.
             </p>
             <p>
               Developed by:
