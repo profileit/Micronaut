@@ -47,19 +47,19 @@ API: ```docker run --network mninit_network -d -p 8080:80 --name=mninit-app mnin
 * PRE-REQUISITE: install gcloud cli.
 
 ### Build and upload API Docker image to Google Cloud
-Go to api folder and execute the following command: ```gcloud builds submit --tag gcr.io/${PROJECT_ID}/mninit-api``` where PROJECT_ID is the id of the proyecto in GC.
+Go to api folder and execute the following command: ```gcloud builds submit --tag gcr.io/${PROJECT_ID}/mninit-api``` where PROJECT_ID is the id of the proyect in GC.
 
 ### Deploy API in Google Cloud Run
-Execute the following command: ```gcloud beta run deploy --image gcr.io/${PROJECT_ID}/mninit-api --platform managed``` where PROJECT_ID is the id of the proyecto in GC.
+Execute the following command: ```gcloud beta run deploy --image gcr.io/${PROJECT_ID}/mninit-api --platform managed``` where PROJECT_ID is the id of the proyect in GC.
 
 ### Get Google Cloud Run API URL
 When the API has been successfully deployed, copy the URL to constant API_URL in app project: ```app/src/constants/index.js```
 
 ### Build and upload APP Docker image to Google Cloud
-Go to api folder and execute the following command: ```gcloud builds submit --tag gcr.io/${PROJECT_ID}/mninit-app``` where PROJECT_ID is the id of the proyecto in GC.
+Go to api folder and execute the following command: ```gcloud builds submit --tag gcr.io/${PROJECT_ID}/mninit-app``` where PROJECT_ID is the id of the proyect in GC.
 
 ### Deploy APP in Google Cloud Run
-Execute the following command: ```gcloud beta run deploy --image gcr.io/${PROJECT_ID}/mninit-app --platform managed``` where PROJECT_ID is the id of the proyecto in GC.
+Execute the following command: ```gcloud beta run deploy --image gcr.io/${PROJECT_ID}/mninit-app --platform managed``` where PROJECT_ID is the id of the proyect in GC.
 
 ## Featured
 
@@ -68,6 +68,6 @@ Execute the following command: ```gcloud beta run deploy --image gcr.io/${PROJEC
 </a>
 &nbsp;&nbsp;&nbsp;
 <a href="">
-    <img src="app\src\micronaut.png" width="300">
+    <img src="app\src\micronaut_logo.svg" width="300">
 </a>
 
