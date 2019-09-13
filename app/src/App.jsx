@@ -6,7 +6,7 @@ import Modal from "react-materialize/lib/Modal";
 import Row from "react-materialize/lib/Row";
 import TextInput from "react-materialize/lib/TextInput";
 import logo from "./micronaut.png";
-import profileLogo from "./profile-icon.jpg";
+import profileLogo from "./profile-logo.png";
 import "./style.css";
 import RadioGroup from "react-materialize/lib/RadioGroup";
 import { FEATURES, API_URL } from './constants';
@@ -19,7 +19,7 @@ class App extends Component {
       micronautVersions: [],
       lang: "java",
       build: "gradle",
-      version: "1.2.0.RC1",
+      version: "",
       features: [],
       featureSearch: "",
       featuresToSelect: FEATURES,
@@ -314,7 +314,7 @@ class App extends Component {
                 <a href="https://www.linkedin.com/in/francisco-javier-delgado-vallano-b28b1670/" rel="noopener noreferrer" target="_blank">Fco. Javier Delgado Vallano</a>
               </Col>
               <Col s={3}>
-                <a href="https://profile.es/" rel="noopener noreferrer" target="_blank"><img src={profileLogo} width="50%" alt="Profile Software Services" /></a>
+                <a href="https://profile.es/" rel="noopener noreferrer" target="_blank"><img src={profileLogo} width="100%" alt="Profile Software Services" /></a>
               </Col>
             </Row>
      
